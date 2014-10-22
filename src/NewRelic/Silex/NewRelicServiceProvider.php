@@ -41,6 +41,10 @@ class NewRelicServiceProvider implements ServiceProviderInterface
 
             return new Newrelic();
         });
+        
+        if (!$this->installed) { 	
+            return; 	
+        }
 
         $app['newrelic.ini_configurator'] = $app->share(function($app) {
             return new IniConfigurator();
@@ -121,6 +125,10 @@ class NewRelicServiceProvider implements ServiceProviderInterface
 
     public function boot(Application $app)
     {
+        if (!$this->installed) { 	
+            return; 	
+        }
+        
         $this->configureNewRelic($app);
         $this->setupAfterMiddleware($app);
     }
