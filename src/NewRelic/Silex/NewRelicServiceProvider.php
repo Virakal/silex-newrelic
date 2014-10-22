@@ -34,10 +34,6 @@ class NewRelicServiceProvider implements ServiceProviderInterface
 
     public function register(Application $app)
     {
-        if (!$this->installed) {
-            return;
-        }
-
         $self = $this;
         $app['newrelic'] = $app->share(function($app) use ($self) {
             $self->setDefaultOptions($app);
@@ -125,10 +121,6 @@ class NewRelicServiceProvider implements ServiceProviderInterface
 
     public function boot(Application $app)
     {
-        if (!$this->installed) {
-            return;
-        }
-
         $this->configureNewRelic($app);
         $this->setupAfterMiddleware($app);
     }
