@@ -18,7 +18,7 @@ class IniConfigurator
     {
         ini_set($varname, $value);
 
-        if (!$this->match($varname, $value)) {
+        if (false && !$this->match($varname, $value)) {
             throw new UnexpectedValueException(sprintf(
                 'Unable to set value "%s" in %s',
                 $value, $varname

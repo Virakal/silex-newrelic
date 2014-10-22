@@ -45,13 +45,13 @@ class NewRelicServiceProvider implements ServiceProviderInterface
         $app['newrelic.setup_module'] = $app->share(function($app) {
             return new SetupModule($app['newrelic.ini_configurator']);
         });
-        
+
         if (!isset($app['newrelic.options'])) {
             $app['newrelic.options'] = array();
         }
-        
-        if (!$this->installed) { 	
-            return; 	
+
+        if (!$this->installed) {
+            // return;
         }
 
         $app['newrelic.ini_configurator'] = $app->share(function($app) {
@@ -74,7 +74,7 @@ class NewRelicServiceProvider implements ServiceProviderInterface
     public function setDefaultOptions(Application $app)
     {
         $app['newrelic.options'] = array_merge(
-            $this->getDefaultOptions(), 
+            $this->getDefaultOptions(),
             $app['newrelic.options']
         );
 
@@ -125,10 +125,10 @@ class NewRelicServiceProvider implements ServiceProviderInterface
 
     public function boot(Application $app)
     {
-        if (!$this->installed) { 	
-            return; 	
+        if (!$this->installed) {
+            // return;
         }
-        
+
         $this->configureNewRelic($app);
         $this->setupAfterMiddleware($app);
     }
