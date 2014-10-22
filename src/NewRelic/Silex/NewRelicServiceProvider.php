@@ -41,14 +41,6 @@ class NewRelicServiceProvider implements ServiceProviderInterface
 
             return new Newrelic();
         });
-        
-        if (!$this->installed) { 	
-            return; 	
-        }
-
-        $app['newrelic.ini_configurator'] = $app->share(function($app) {
-            return new IniConfigurator();
-        });
 
         $app['newrelic.setup_module'] = $app->share(function($app) {
             return new SetupModule($app['newrelic.ini_configurator']);
@@ -57,6 +49,14 @@ class NewRelicServiceProvider implements ServiceProviderInterface
         if (!isset($app['newrelic.options'])) {
             $app['newrelic.options'] = array();
         }
+        
+        if (!$this->installed) { 	
+            return; 	
+        }
+
+        $app['newrelic.ini_configurator'] = $app->share(function($app) {
+            return new IniConfigurator();
+        });
     }
 
     public function getDefaultOptions()
